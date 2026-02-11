@@ -1,62 +1,53 @@
 // Rentazuela — Global Types
+// Convenience aliases derived from the auto-generated database types.
+// ⚠️ Do NOT define manual interfaces here — use Tables<> from database.ts.
 
-export type ListingType = 'property' | 'vehicle' | 'commercial';
-export type ListingPurpose = 'sale' | 'long-term-rent' | 'short-term-rent';
-export type Currency = 'USD' | 'VES';
+import type { Tables, TablesInsert, TablesUpdate, Enums } from "./database";
 
-export type UserTier = 'free' | 'pro' | 'business' | 'developer';
+// ─── Row types (SELECT) ───────────────────────────────────────────
+export type Profile = Tables<"profiles">;
+export type Listing = Tables<"listings">;
+export type ListingImage = Tables<"listing_images">;
+export type Booking = Tables<"bookings">;
+export type Review = Tables<"reviews">;
+export type Availability = Tables<"availability">;
 
-export interface User {
-  id: string;
-  email: string;
-  full_name: string;
-  avatar_url?: string;
-  phone?: string;
-  tier: UserTier;
-  is_verified: boolean;
-  created_at: string;
-}
+// ─── Insert types ─────────────────────────────────────────────────
+export type ProfileInsert = TablesInsert<"profiles">;
+export type ListingInsert = TablesInsert<"listings">;
+export type ListingImageInsert = TablesInsert<"listing_images">;
+export type BookingInsert = TablesInsert<"bookings">;
+export type ReviewInsert = TablesInsert<"reviews">;
+export type AvailabilityInsert = TablesInsert<"availability">;
 
-export interface Listing {
-  id: string;
-  user_id: string;
-  type: ListingType;
-  purpose: ListingPurpose;
-  title: string;
-  description: string;
-  price_usd: number;
-  price_ves?: number;
-  currency: Currency;
-  state: string;
-  city: string;
-  address?: string;
-  latitude?: number;
-  longitude?: number;
-  photos: string[];
-  is_active: boolean;
-  is_featured: boolean;
-  views_count: number;
-  created_at: string;
-  updated_at: string;
-}
+// ─── Update types ─────────────────────────────────────────────────
+export type ProfileUpdate = TablesUpdate<"profiles">;
+export type ListingUpdate = TablesUpdate<"listings">;
+export type ListingImageUpdate = TablesUpdate<"listing_images">;
+export type BookingUpdate = TablesUpdate<"bookings">;
+export type ReviewUpdate = TablesUpdate<"reviews">;
+export type AvailabilityUpdate = TablesUpdate<"availability">;
 
-export interface PropertyDetails {
-  listing_id: string;
-  bedrooms: number;
-  bathrooms: number;
-  area_m2: number;
-  parking_spots: number;
-  is_furnished: boolean;
-  property_type: 'apartment' | 'house' | 'townhouse' | 'penthouse' | 'land' | 'office';
-}
+// ─── Enum types ───────────────────────────────────────────────────
+export type ListingCategory = Enums<"listing_category">;
+export type CurrencyType = Enums<"currency_type">;
+export type BookingStatus = Enums<"booking_status">;
+export type UserTier = Enums<"user_tier">;
 
-export interface VehicleDetails {
-  listing_id: string;
-  brand: string;
-  model: string;
-  year: number;
-  vehicle_type: 'sedan' | 'suv' | 'pickup' | 'van' | 'motorcycle' | 'other';
-  mileage_km: number;
-  transmission: 'automatic' | 'manual';
-  fuel_type: 'gasoline' | 'diesel' | 'electric' | 'hybrid';
-}
+// ─── Composite / extended types (app-level only) ──────────────────
+/** Listing with its images joined */
+export type ListingWithImages = Listing & {
+  listing_images: ListingImage[];
+};
+
+/** Listing with owner profile joined */
+export type ListingWithOwner = Listing & {
+  profiles: Profile;
+};
+
+/** Full listing for detail page */
+export type ListingFull = Listing & {
+  listing_images: ListingImage[];
+  profiles: Profile;
+  reviews: Review[];
+};
