@@ -1,13 +1,18 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import {
-  Home,
   Instagram,
   Facebook,
   Linkedin,
   Youtube,
   Mail,
   Phone,
+  Send,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const FOOTER_SECTIONS = [
   {
@@ -57,42 +62,55 @@ const SOCIALS = [
 ];
 
 export function Footer() {
+  const [email, setEmail] = useState("");
+
   return (
-    <footer className="border-t bg-card">
-      {/* ── Investment CTA ── */}
-      <div className="bg-brand-gradient">
-        <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 px-4 py-10 text-center text-white sm:px-6 lg:flex-row lg:justify-between lg:px-8 lg:text-left">
-          <div>
-            <h3 className="text-xl font-bold font-[family-name:var(--font-heading)]">
-              🏗️ Oportunidad de Inversión: Pioneros en Venezuela
+    <footer className="border-t bg-white dark:bg-background">
+      {/* ── Investment CTA with Newsletter ── */}
+      <div className="bg-brand">
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 px-4 py-14 text-center text-white sm:px-6 lg:flex-row lg:justify-between lg:px-8 lg:text-left">
+          <div className="max-w-xl">
+            <h3 className="text-2xl font-black tracking-tighter sm:text-3xl">
+              Pioneros en la nueva era inmobiliaria
             </h3>
-            <p className="mt-1 text-sm text-white/80">
-              Conecta con constructoras verificadas y descubre proyectos inmobiliarios antes que nadie.
+            <p className="mt-2 text-sm font-medium text-white/90">
+              Rentazuela conecta inversionistas con proyectos verificados. Únete
+              a la plataforma de rentas más moderna del país.
             </p>
           </div>
-          <Link
-            href="/inversiones"
-            className="shrink-0 rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-emerald-700 shadow-lg transition-transform hover:scale-105"
-          >
-            Explorar Inversiones →
-          </Link>
+          <div className="flex w-full max-w-md flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+            <div className="relative flex-1">
+              <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-brand" />
+              <Input
+                type="email"
+                placeholder="tu@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="h-12 border-0 bg-white pl-10 text-sm font-medium text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
+              />
+            </div>
+            <Button className="h-12 shrink-0 bg-black px-6 font-black uppercase tracking-widest text-white transition-all hover:bg-black/80 active:scale-95">
+              <Send className="mr-2 h-4 w-4" />
+              Suscribir
+            </Button>
+          </div>
         </div>
       </div>
 
       {/* ── Links Grid ── */}
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 gap-12 md:grid-cols-4">
           {FOOTER_SECTIONS.map((section) => (
             <div key={section.title}>
-              <h4 className="text-sm font-semibold uppercase tracking-wider text-foreground">
+              <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-foreground/50">
                 {section.title}
               </h4>
-              <ul className="mt-4 space-y-2.5">
+              <ul className="mt-6 space-y-3">
                 {section.links.map((link) => (
-                  <li key={link.href}>
+                  <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                      className="text-sm font-semibold text-muted-foreground transition-all hover:text-brand"
                     >
                       {link.label}
                     </Link>
@@ -105,29 +123,39 @@ export function Footer() {
       </div>
 
       {/* ── Bottom Bar ── */}
-      <div className="border-t">
-        <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 px-4 py-6 sm:px-6 md:flex-row md:justify-between lg:px-8">
+      <div className="border-t border-muted bg-muted/20">
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-4 py-8 sm:px-6 md:flex-row md:justify-between lg:px-8">
           {/* Brand */}
-          <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-gradient">
-              <Home className="h-4 w-4 text-white" />
-            </div>
-            <span className="text-sm font-semibold">
-              <span className="text-gradient">Renta</span>zuela
-            </span>
-            <span className="text-xs text-muted-foreground">
-              · Hecho en Venezuela 🇻🇪
+          <div className="flex items-center gap-3">
+            <img
+              src="/logo-dark.svg"
+              alt="Rentazuela"
+              className="h-7 w-auto dark:block hidden"
+            />
+            <img
+              src="/logo-light.svg"
+              alt="Rentazuela"
+              className="h-7 w-auto dark:hidden block"
+            />
+            <span className="text-xs font-bold text-muted-foreground">
+              · 🇻🇪
             </span>
           </div>
 
           {/* Contact */}
-          <div className="flex items-center gap-4 text-xs text-muted-foreground">
-            <a href="mailto:contacto@rentazuela.com" className="flex items-center gap-1 hover:text-foreground">
-              <Mail className="h-3.5 w-3.5" />
-              contacto@rentazuela.com
+          <div className="flex items-center gap-6 text-xs font-bold text-muted-foreground">
+            <a
+              href="mailto:hola@rentazuela.com"
+              className="flex items-center gap-2 transition-colors hover:text-brand"
+            >
+              <Mail className="h-4 w-4" />
+              hola@rentazuela.com
             </a>
-            <a href="tel:+584241234567" className="flex items-center gap-1 hover:text-foreground">
-              <Phone className="h-3.5 w-3.5" />
+            <a
+              href="tel:+584241234567"
+              className="flex items-center gap-2 transition-colors hover:text-brand"
+            >
+              <Phone className="h-4 w-4" />
               +58 424 123 4567
             </a>
           </div>
@@ -143,9 +171,9 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-muted-foreground shadow-sm transition-all duration-300 hover:scale-110 hover:bg-brand hover:text-white dark:bg-card"
                 >
-                  <Icon className="h-4 w-4" />
+                  <Icon className="h-5 w-5" />
                 </a>
               );
             })}
@@ -153,8 +181,9 @@ export function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="border-t py-4 text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Rentazuela. Todos los derechos reservados.
+        <div className="border-t border-muted bg-muted/40 py-6 text-center text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">
+          © {new Date().getFullYear()} Rentazuela. Minimal Architecture.
+          Premium Living.
         </div>
       </div>
     </footer>

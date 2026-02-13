@@ -28,6 +28,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
   ),
+  icons: {
+    icon: "/logo-icon.svg",
+    shortcut: "/logo-icon.svg",
+    apple: "/logo-icon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -40,7 +45,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${outfit.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >

@@ -1,7 +1,10 @@
 import { HeroSlider } from "@/components/home/hero-slider";
 import { FeaturedSection } from "@/components/home/featured-section";
 import { StatsBar } from "@/components/home/stats-bar";
-import { ListingCard } from "@/components/listings/listing-card";
+import { HowItWorks } from "@/components/home/how-it-works";
+import { Testimonials } from "@/components/home/testimonials";
+import { LegacyListingCard } from "@/components/listings/legacy-listing-card";
+import { FadeIn } from "@/components/animations/fade-in";
 
 /* ── Demo data — will be replaced with Supabase queries in Sprint 4 ── */
 const FEATURED_PROPERTIES = [
@@ -14,6 +17,8 @@ const FEATURED_PROPERTIES = [
     timeAgo: "2 horas",
     area: "120 m²",
     category: "property_longterm" as const,
+    imageUrl: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=800",
+    isNew: true,
   },
   {
     id: "2",
@@ -24,6 +29,7 @@ const FEATURED_PROPERTIES = [
     timeAgo: "5 horas",
     area: "250 m²",
     category: "property_longterm" as const,
+    imageUrl: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=800",
   },
   {
     id: "3",
@@ -34,6 +40,7 @@ const FEATURED_PROPERTIES = [
     timeAgo: "1 día",
     area: "180 m²",
     category: "property_longterm" as const,
+    imageUrl: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800",
   },
   {
     id: "4",
@@ -44,6 +51,8 @@ const FEATURED_PROPERTIES = [
     timeAgo: "3 horas",
     area: "200 m²",
     category: "property_longterm" as const,
+    imageUrl: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800",
+    isNew: true,
   },
   {
     id: "5",
@@ -54,6 +63,7 @@ const FEATURED_PROPERTIES = [
     timeAgo: "6 horas",
     area: "300 m²",
     category: "property_longterm" as const,
+    imageUrl: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800",
   },
 ];
 
@@ -67,6 +77,8 @@ const FEATURED_VEHICLES = [
     timeAgo: "30 min",
     area: "22,000 km",
     category: "vehicle" as const,
+    imageUrl: "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&q=80&w=800",
+    isNew: true,
   },
   {
     id: "v2",
@@ -77,6 +89,7 @@ const FEATURED_VEHICLES = [
     timeAgo: "1 hora",
     area: "35,000 km",
     category: "vehicle" as const,
+    imageUrl: "https://images.unsplash.com/photo-1533473359331-2969f3c6aca0?auto=format&fit=crop&q=80&w=800",
   },
   {
     id: "v3",
@@ -87,6 +100,7 @@ const FEATURED_VEHICLES = [
     timeAgo: "2 horas",
     area: "0 km",
     category: "vehicle" as const,
+    imageUrl: "https://images.unsplash.com/photo-1549317661-bd32c8ce0afa?auto=format&fit=crop&q=80&w=800",
   },
   {
     id: "v4",
@@ -97,6 +111,7 @@ const FEATURED_VEHICLES = [
     timeAgo: "4 horas",
     area: "45,000 km",
     category: "vehicle" as const,
+    imageUrl: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=800",
   },
   {
     id: "v5",
@@ -108,6 +123,7 @@ const FEATURED_VEHICLES = [
     area: "SUV",
     category: "vehicle" as const,
     pricePeriod: " / día",
+    imageUrl: "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&q=80&w=800",
   },
 ];
 
@@ -122,6 +138,7 @@ const FEATURED_COMMERCIAL = [
     area: "85 m²",
     category: "commercial" as const,
     pricePeriod: " / mes",
+    imageUrl: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800",
   },
   {
     id: "c2",
@@ -133,6 +150,8 @@ const FEATURED_COMMERCIAL = [
     area: "120 m²",
     category: "commercial" as const,
     pricePeriod: " / mes",
+    imageUrl: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=800",
+    isNew: true,
   },
   {
     id: "c3",
@@ -143,6 +162,7 @@ const FEATURED_COMMERCIAL = [
     timeAgo: "2 días",
     area: "500 m²",
     category: "commercial" as const,
+    imageUrl: "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?auto=format&fit=crop&q=80&w=800",
   },
   {
     id: "c4",
@@ -154,6 +174,7 @@ const FEATURED_COMMERCIAL = [
     area: "15 m²",
     category: "commercial" as const,
     pricePeriod: " / mes",
+    imageUrl: "https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&q=80&w=800",
   },
   {
     id: "c5",
@@ -165,6 +186,7 @@ const FEATURED_COMMERCIAL = [
     area: "60 m²",
     category: "commercial" as const,
     pricePeriod: " / mes",
+    imageUrl: "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&q=80&w=800",
   },
 ];
 
@@ -174,29 +196,57 @@ export default function HomePage() {
       {/* ── Hero ── */}
       <HeroSlider />
 
+      {/* ── Cómo Funciona ── */}
+      <FadeIn direction="up" delay={0}>
+        <HowItWorks />
+      </FadeIn>
+
+      {/* ── Propiedades Destacadas ── */}
+      <FadeIn direction="up" delay={0.1}>
+        <FeaturedSection
+          title="Propiedades Destacadas"
+          subtitle="Las mejores propiedades del país, verificadas por nuestro equipo"
+          href="/propiedades"
+        >
+          {FEATURED_PROPERTIES.map((p) => (
+            <LegacyListingCard key={p.id} {...p} />
+          ))}
+        </FeaturedSection>
+      </FadeIn>
+
+      {/* ── Vehículos ── */}
+      <FadeIn direction="up" delay={0.1}>
+        <FeaturedSection
+          title="Vehículos en Venta y Alquiler"
+          subtitle="Encuentra tu próximo carro con opciones de compra y alquiler diario"
+          href="/vehiculos"
+        >
+          {FEATURED_VEHICLES.map((v) => (
+            <LegacyListingCard key={v.id} {...v} />
+          ))}
+        </FeaturedSection>
+      </FadeIn>
+
+      {/* ── Locales Comerciales ── */}
+      <FadeIn direction="up" delay={0.1}>
+        <FeaturedSection
+          title="Locales Comerciales"
+          subtitle="Oficinas, galpones y espacios coworking para impulsar tu negocio"
+          href="/locales"
+        >
+          {FEATURED_COMMERCIAL.map((c) => (
+            <LegacyListingCard key={c.id} {...c} />
+          ))}
+        </FeaturedSection>
+      </FadeIn>
+
       {/* ── Stats ── */}
       <StatsBar />
 
-      {/* ── Propiedades Destacadas ── */}
-      <FeaturedSection title="Propiedades Destacadas" href="/propiedades">
-        {FEATURED_PROPERTIES.map((p) => (
-          <ListingCard key={p.id} {...p} />
-        ))}
-      </FeaturedSection>
-
-      {/* ── Vehículos ── */}
-      <FeaturedSection title="Vehículos en Venta y Alquiler" href="/vehiculos">
-        {FEATURED_VEHICLES.map((v) => (
-          <ListingCard key={v.id} {...v} />
-        ))}
-      </FeaturedSection>
-
-      {/* ── Locales Comerciales ── */}
-      <FeaturedSection title="Locales Comerciales" href="/locales">
-        {FEATURED_COMMERCIAL.map((c) => (
-          <ListingCard key={c.id} {...c} />
-        ))}
-      </FeaturedSection>
+      {/* ── Testimonios ── */}
+      <FadeIn direction="up" delay={0.1}>
+        <Testimonials />
+      </FadeIn>
     </>
   );
 }

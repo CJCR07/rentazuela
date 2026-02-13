@@ -34,6 +34,39 @@ export type CurrencyType = Enums<"currency_type">;
 export type BookingStatus = Enums<"booking_status">;
 export type UserTier = Enums<"user_tier">;
 
+// ─── Listing Details Types ────────────────────────────────────────
+export interface PropertyDetails {
+  listing_type?: "sale" | "rent";
+  property_type?: "apartment" | "house" | "townhouse" | "penthouse" | "land";
+  bedrooms?: number;
+  bathrooms?: number;
+  square_meters?: number;
+  parking_spaces?: number;
+}
+
+export interface VehicleDetails {
+  listing_type?: "sale" | "rent";
+  vehicle_type?: "sedan" | "suv" | "truck" | "luxury" | "economy";
+  year?: number;
+  mileage?: number;
+  transmission?: "automatic" | "manual";
+  fuel_type?: "gasoline" | "diesel" | "electric" | "hybrid";
+}
+
+export interface CommercialDetails {
+  listing_type?: "sale" | "rent";
+  commercial_type?: "office" | "retail" | "warehouse" | "coworking" | "restaurant";
+  square_meters?: number;
+}
+
+export interface InvestmentDetails {
+  investment_type?: "project" | "property_share" | "business";
+  expected_roi?: number;
+  minimum_investment?: number;
+}
+
+export type ListingDetails = PropertyDetails | VehicleDetails | CommercialDetails | InvestmentDetails;
+
 // ─── Composite / extended types (app-level only) ──────────────────
 /** Listing with its images joined */
 export type ListingWithImages = Listing & {

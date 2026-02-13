@@ -1,71 +1,39 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { Home, MapPin, Users } from "lucide-react";
+import { Home, MapPin, Users, TrendingUp } from "lucide-react";
+import { AnimatedCounter } from "@/components/animations/animated-counter";
+import { FadeIn } from "@/components/animations/fade-in";
 
 const STATS = [
-  { icon: Home, value: 500, suffix: "+", label: "Propiedades Publicadas" },
-  { icon: MapPin, value: 24, suffix: "", label: "Estados Cubiertos" },
-  { icon: Users, value: 1000, suffix: "+", label: "Usuarios Registrados" },
+  { icon: Home, value: 500, suffix: "+", label: "Propiedades Publicadas", delay: 0 },
+  { icon: MapPin, value: 24, suffix: "", label: "Estados Cubiertos", delay: 0.1 },
+  { icon: Users, value: 1000, suffix: "+", label: "Usuarios Registrados", delay: 0.2 },
+  { icon: TrendingUp, value: 98, suffix: "%", label: "Satisfacción", delay: 0.3 },
 ];
-
-function AnimatedCounter({ target, suffix }: { target: number; suffix: string }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const hasAnimated = useRef(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated.current) {
-          hasAnimated.current = true;
-          const duration = 1500;
-          const steps = 40;
-          const increment = target / steps;
-          let current = 0;
-          const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-              setCount(target);
-              clearInterval(timer);
-            } else {
-              setCount(Math.floor(current));
-            }
-          }, duration / steps);
-        }
-      },
-      { threshold: 0.3 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [target]);
-
-  return (
-    <span ref={ref} className="text-3xl font-extrabold tracking-tight text-brand sm:text-4xl font-[family-name:var(--font-heading)]">
-      {count.toLocaleString("es-VE")}
-      {suffix}
-    </span>
-  );
-}
 
 export function StatsBar() {
   return (
-    <section className="border-y bg-muted/30">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 py-12 sm:grid-cols-3 sm:px-6 lg:px-8">
+    <section className="py-16 sm:py-20">
+      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-y-12 sm:grid-cols-4">
         {STATS.map((stat) => {
           const Icon = stat.icon;
           return (
-            <div key={stat.label} className="flex flex-col items-center text-center">
-              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-brand/10">
-                <Icon className="h-6 w-6 text-brand" />
-              </div>
-              <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-              <span className="mt-1 text-sm text-muted-foreground">{stat.label}</span>
-            </div>
+            <FadeIn
+              key={stat.label}
+              delay={stat.delay}
+              direction="up"
+              className="group flex flex-col items-center gap-3"
+            >
+              <Icon className="h-5 w-5 text-muted-foreground/60 transition-all duration-300 group-hover:text-brand group-hover:scale-110" />
+              <AnimatedCounter
+                value={stat.value}
+                suffix={stat.suffix}
+                className="text-3xl font-extrabold tracking-tight text-brand sm:text-4xl font-[family-name:var(--font-heading)]"
+              />
+              <span className="text-center text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/70">
+                {stat.label}
+              </span>
+            </FadeIn>
           );
         })}
       </div>

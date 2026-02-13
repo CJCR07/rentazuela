@@ -1,22 +1,41 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface FeaturedSectionProps {
   title: string;
+  subtitle?: string;
   href: string;
   children: React.ReactNode;
 }
 
-export function FeaturedSection({ title, href, children }: FeaturedSectionProps) {
+export function FeaturedSection({ title, subtitle, href, children }: FeaturedSectionProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const scroll = (direction: "left" | "right") => {
     if (!scrollRef.current) return;
-    const amount = 320;
+    const amount = 340;
     scrollRef.current.scrollBy({
       left: direction === "left" ? -amount : amount,
       behavior: "smooth",
@@ -24,39 +43,50 @@ export function FeaturedSection({ title, href, children }: FeaturedSectionProps)
   };
 
   return (
-    <section className="py-10 lg:py-14">
+    <section
+      ref={sectionRef}
+      className={`py-10 lg:py-14 transition-all duration-700 ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      }`}
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* ── Header ── */}
-        <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-2xl font-bold tracking-tight font-[family-name:var(--font-heading)] sm:text-3xl">
-            {title}
-          </h2>
-          <div className="flex items-center gap-2">
+        <div className="mb-8 flex items-end justify-between border-b border-muted pb-4">
+          <div className="flex flex-col gap-1">
+            <h2 className="text-3xl font-black tracking-tighter sm:text-4xl">
+              {title}
+            </h2>
+            {subtitle && (
+              <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
+            )}
+            <div className="h-1 w-12 bg-brand mt-2" />
+          </div>
+          <div className="flex items-center gap-4">
             {/* Scroll arrows — desktop only */}
-            <div className="hidden gap-1 sm:flex">
+            <div className="hidden gap-2 sm:flex">
               <Button
                 variant="outline"
                 size="icon"
-                className="h-8 w-8 rounded-full"
+                className="h-10 w-10 rounded-full border-muted bg-transparent transition-all hover:bg-brand hover:text-white hover:border-brand"
                 onClick={() => scroll("left")}
                 aria-label="Scroll izquierda"
               >
-                <ChevronLeft className="h-4 w-4" />
+                <ChevronLeft className="h-5 w-5" />
               </Button>
               <Button
                 variant="outline"
                 size="icon"
-                className="h-8 w-8 rounded-full"
+                className="h-10 w-10 rounded-full border-muted bg-transparent transition-all hover:bg-brand hover:text-white hover:border-brand"
                 onClick={() => scroll("right")}
                 aria-label="Scroll derecha"
               >
-                <ChevronRight className="h-4 w-4" />
+                <ChevronRight className="h-5 w-5" />
               </Button>
             </div>
-            <Button variant="ghost" size="sm" asChild className="text-brand hover:text-brand-hover">
-              <Link href={href}>
-                Ver más
-                <ArrowRight className="ml-1 h-4 w-4" />
+            <Button variant="ghost" size="sm" asChild className="font-bold text-brand hover:bg-brand/5 hover:text-brand">
+              <Link href={href} className="flex items-center gap-1.5">
+                Ver todo
+                <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
           </div>
@@ -65,7 +95,7 @@ export function FeaturedSection({ title, href, children }: FeaturedSectionProps)
         {/* ── Carousel ── */}
         <div
           ref={scrollRef}
-          className="scrollbar-hide -mx-4 flex gap-4 overflow-x-auto scroll-smooth px-4 pb-2"
+          className="scrollbar-hide -mx-4 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-4 pb-2"
         >
           {children}
         </div>
