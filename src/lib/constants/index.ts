@@ -28,3 +28,17 @@ export const NAV_ITEMS = [
   { label: 'Locales', href: '/locales', icon: 'building' },
   { label: 'Inversiones', href: '/inversiones', icon: 'trending-up' },
 ] as const;
+
+// Top cities in Venezuela (for location dropdown)
+export const TOP_CITIES = [
+  { name: 'Caracas', state: 'Distrito Capital' },
+  { name: 'Maracaibo', state: 'Zulia' },
+  { name: 'Valencia', state: 'Carabobo' },
+  { name: 'Barquisimeto', state: 'Lara' },
+  { name: 'Maracay', state: 'Aragua' },
+  { name: 'Ciudad Guayana', state: 'Bolívar' },
+  { name: 'Maturín', state: 'Monagas' },
+  { name: 'Barcelona', state: 'Anzoátegui' },
+  { name: 'San Cristóbal', state: 'Táchira' },
+  { name: 'Mérida', state: 'Mérida' },
+] as const;
