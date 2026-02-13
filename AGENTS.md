@@ -12,6 +12,8 @@ npm run start        # Start production server
 
 **Testing**: No test suite configured. TypeScript strict mode + ESLint provide validation.
 
+**Git Workflow**: Push commits directly to `main` branch (not `develop`).
+
 ## Project Overview
 
 Marketplace web app for Venezuela — properties, vehicles, commercial spaces, investments. Dual-currency pricing (USD/VES). All UI text in Spanish.
