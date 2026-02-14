@@ -35,28 +35,28 @@ export default function MisAnunciosPage() {
         .from("listings")
         .select("*")
         .eq("owner_id", user.id)
-        .order("created_at", { ascending: false });
+        .order("created_at", { ascending: false }) as { data: Listing[] | null };
 
-      if (listingsData && listingsData.length > 0) {
-        setListings(listingsData as Listing[]);
+    if (listingsData && listingsData.length > 0) {
+      setListings(listingsData);
 
-        const listingIds = listingsData.map((l) => l.id);
-        const { data: imagesData } = await supabase
-          .from("listing_images")
-          .select("*")
-          .in("listing_id", listingIds)
-          .order("position", { ascending: true });
+      const listingIds = listingsData.map((l: Listing) => l.id);
+      const { data: imagesData } = await supabase
+        .from("listing_images")
+        .select("*")
+        .in("listing_id", listingIds)
+        .order("position", { ascending: true }) as { data: ListingImage[] | null };
 
-        const imagesMap: Record<string, ListingImage> = {};
-        if (imagesData) {
-          for (const img of imagesData) {
-            if (!imagesMap[img.listing_id]) {
-              imagesMap[img.listing_id] = img;
-            }
+      const imagesMap: Record<string, ListingImage> = {};
+      if (imagesData) {
+        for (const img of imagesData) {
+          if (!imagesMap[img.listing_id]) {
+            imagesMap[img.listing_id] = img;
           }
         }
-        setImages(imagesMap);
       }
+      setImages(imagesMap);
+    }
 
       setLoading(false);
     };

@@ -1,0 +1,23 @@
+{
+  "name": "Rentazuela",
+  "short_name": "Rentazuela",
+  "description": "Marketplace inmobiliario de Venezuela - Propiedades, Vehículos, Locales e Inversiones",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#E81C1C",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "shopping"],
+  "lang": "es",
+  "dir": "ltr",
+  "scope": "/",
+  "prefer_related_applications": false
+}

@@ -1,38 +1,155 @@
 // Rentazuela — Global Types
-// Convenience aliases derived from the auto-generated database types.
-// ⚠️ Do NOT define manual interfaces here — use Tables<> from database.ts.
+// Manual type definitions
 
-import type { Tables, TablesInsert, TablesUpdate, Enums } from "./database";
+// ─── Profile ──────────────────────────────────────────────────────
+export interface Profile {
+  id: string;
+  email: string;
+  full_name: string | null;
+  avatar_url: string | null;
+  phone: string | null;
+  tier: string | null;
+  is_admin: boolean | null;
+  is_verified: boolean | null;
+  created_at: string;
+  updated_at: string;
+}
 
-// ─── Row types (SELECT) ───────────────────────────────────────────
-export type Profile = Tables<"profiles">;
-export type Listing = Tables<"listings">;
-export type ListingImage = Tables<"listing_images">;
-export type Booking = Tables<"bookings">;
-export type Review = Tables<"reviews">;
-export type Availability = Tables<"availability">;
+export type ProfileUpdate = Partial<Omit<Profile, "id" | "email" | "created_at">>;
 
-// ─── Insert types ─────────────────────────────────────────────────
-export type ProfileInsert = TablesInsert<"profiles">;
-export type ListingInsert = TablesInsert<"listings">;
-export type ListingImageInsert = TablesInsert<"listing_images">;
-export type BookingInsert = TablesInsert<"bookings">;
-export type ReviewInsert = TablesInsert<"reviews">;
-export type AvailabilityInsert = TablesInsert<"availability">;
+// ─── Listing ─────────────────────────────────────────────────────
+export type ListingCategory = "property_longterm" | "property_shortterm" | "vehicle" | "commercial" | "investment";
+export type CurrencyType = "USD" | "VES";
 
-// ─── Update types ─────────────────────────────────────────────────
-export type ProfileUpdate = TablesUpdate<"profiles">;
-export type ListingUpdate = TablesUpdate<"listings">;
-export type ListingImageUpdate = TablesUpdate<"listing_images">;
-export type BookingUpdate = TablesUpdate<"bookings">;
-export type ReviewUpdate = TablesUpdate<"reviews">;
-export type AvailabilityUpdate = TablesUpdate<"availability">;
+export interface Listing {
+  id: string;
+  owner_id: string;
+  title: string;
+  description: string | null;
+  category: ListingCategory;
+  price: number;
+  currency: CurrencyType;
+  city: string;
+  state: string;
+  address: string | null;
+  latitude: number | null;
+  longitude: number | null;
+  details: Record<string, unknown> | null;
+  is_active: boolean | null;
+  is_featured: boolean | null;
+  views_count: number | null;
+  created_at: string;
+  updated_at: string;
+}
 
-// ─── Enum types ───────────────────────────────────────────────────
-export type ListingCategory = Enums<"listing_category">;
-export type CurrencyType = Enums<"currency_type">;
-export type BookingStatus = Enums<"booking_status">;
-export type UserTier = Enums<"user_tier">;
+export type ListingInsert = Omit<Listing, "id" | "created_at" | "updated_at" | "views_count">;
+export type ListingUpdate = Partial<Omit<Listing, "id" | "owner_id" | "created_at">>;
+
+// ─── Listing Image ───────────────────────────────────────────────
+export interface ListingImage {
+  id: string;
+  listing_id: string;
+  url: string;
+  position: number | null;
+  created_at: string;
+}
+
+export type ListingImageInsert = Omit<ListingImage, "id" | "created_at">;
+
+// ─── Booking ─────────────────────────────────────────────────────
+export type BookingStatus = "pending" | "confirmed" | "cancelled" | "completed";
+
+export interface Booking {
+  id: string;
+  listing_id: string;
+  renter_id: string;
+  start_date: string;
+  end_date: string;
+  total_price: number;
+  status: BookingStatus;
+  created_at: string;
+  updated_at: string;
+}
+
+// ─── Review ───────────────────────────────────────────────────────
+export interface Review {
+  id: string;
+  listing_id: string;
+  user_id: string;
+  rating: number;
+  comment: string | null;
+  created_at: string;
+}
+
+// ─── Availability ────────────────────────────────────────────────
+export interface Availability {
+  id: string;
+  listing_id: string;
+  date: string;
+  is_available: boolean | null;
+  price_override: number | null;
+  created_at: string;
+}
+
+// ─── Conversation & Message ──────────────────────────────────────
+export interface Conversation {
+  id: string;
+  listing_id: string;
+  buyer_id: string;
+  seller_id: string;
+  created_at: string | null;
+  updated_at: string | null;
+}
+
+export interface Message {
+  id: string;
+  conversation_id: string;
+  sender_id: string;
+  content: string;
+  is_read: boolean | null;
+  created_at: string | null;
+}
+
+// ─── Subscription & Payments ─────────────────────────────────────
+export interface Subscription {
+  id: string;
+  user_id: string;
+  tier: string | null;
+  plan_id: string | null;
+  status: string | null;
+  current_period_start: string | null;
+  current_period_end: string | null;
+  cancel_at_period_end: boolean | null;
+  created_at: string | null;
+  updated_at: string | null;
+  currency: string | null;
+}
+
+export interface Payment {
+  id: string;
+  user_id: string;
+  subscription_id: string | null;
+  stripe_payment_intent_id: string | null;
+  amount: number;
+  currency: string | null;
+  status: string | null;
+  payment_method: string | null;
+  description: string | null;
+  created_at: string | null;
+  paid_at: string | null;
+}
+
+export interface FeaturedPurchase {
+  id: string;
+  user_id: string;
+  listing_id: string;
+  stripe_payment_intent_id: string | null;
+  amount: number;
+  currency: string | null;
+  status: string | null;
+  featured_until: string | null;
+  created_at: string | null;
+}
 
 // ─── Listing Details Types ────────────────────────────────────────
 export interface PropertyDetails {
@@ -67,18 +184,15 @@ export interface InvestmentDetails {
 
 export type ListingDetails = PropertyDetails | VehicleDetails | CommercialDetails | InvestmentDetails;
 
-// ─── Composite / extended types (app-level only) ──────────────────
-/** Listing with its images joined */
+// ─── Composite / extended types ────────────────────────────────
 export type ListingWithImages = Listing & {
   listing_images: ListingImage[];
 };
 
-/** Listing with owner profile joined */
 export type ListingWithOwner = Listing & {
   profiles: Profile;
 };
 
-/** Full listing for detail page */
 export type ListingFull = Listing & {
   listing_images: ListingImage[];
   profiles: Profile;

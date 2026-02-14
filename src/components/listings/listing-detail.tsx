@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { MapPin, User, Phone, MessageCircle, Share2, Heart, Shield, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ListingGallery } from "./listing-gallery";
@@ -8,6 +10,7 @@ import { cn } from "@/lib/utils";
 import type { ListingFull, ListingCategory, ListingDetails } from "@/types";
 import { useFavorites } from "@/hooks/use-favorites";
 import { toast } from "sonner";
+import { createConversation } from "@/lib/actions/messages";
 
 /* ── Types ─────────────────────────────────────────────────── */
 
@@ -82,6 +85,7 @@ const PREDEFINED_QUESTIONS = [
 /* ── Component ─────────────────────────────────────────────── */
 
 export function ListingDetail({ listing }: ListingDetailProps) {
+  const router = useRouter();
   const [copiedQuestion, setCopiedQuestion] = useState<string | null>(null);
   const { isFavorite, toggleFavorite } = useFavorites();
 
@@ -259,6 +263,22 @@ export function ListingDetail({ listing }: ListingDetailProps) {
               <Button className="w-full" onClick={handleWhatsApp}>
                 <MessageCircle className="mr-2 h-4 w-4" />
                 Contactar por WhatsApp
+              </Button>
+
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={async () => {
+                  const result = await createConversation(listing.id);
+                  if (result.success && result.conversationId) {
+                    router.push(`/mensajes?conversation=${result.conversationId}`);
+                  } else {
+                    toast.error(result.error || "Error al iniciar conversación");
+                  }
+                }}
+              >
+                <MessageCircle className="mr-2 h-4 w-4" />
+                Enviar mensaje
               </Button>
               
               <Button variant="outline" className="w-full">

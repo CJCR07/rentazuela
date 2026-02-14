@@ -291,7 +291,40 @@ messages:
 
 ---
 
-## Fase 8: Monetización y Suscripciones
+## Fase 8: Panel de Administración
+
+### Objetivo
+Herramientas para moderar y administrar la plataforma.
+
+### Tareas
+- [ ] Dashboard de admin
+- [ ] Moderación de listings (aprobar/rechazar)
+- [ ] Gestión de usuarios
+- [ ] Reportes de contenido
+- [ ] Estadísticas globales
+- [ ] Configuración de precios
+- [ ] Gestión de categorías
+
+---
+
+## Fase 9: Optimización y Escalabilidad
+
+### Objetivo
+Mejorar performance, SEO y experiencia de usuario antes del crecimiento masivo.
+
+### Tareas
+- [ ] Optimización de imágenes (WebP, lazy loading)
+- [ ] Implementar búsqueda con Algolia/Meilisearch
+- [ ] Cache con Redis
+- [ ] PWA (Progressive Web App)
+- [ ] Notificaciones push
+- [ ] SEO avanzado (meta tags, sitemap)
+- [ ] Analytics (Google Analytics, Hotjar)
+- [ ] Testing (unit, integration, e2e)
+
+---
+
+## Fase 10: Monetización y Suscripciones
 
 ### Objetivo
 Generar ingresos mediante suscripciones y listings destacados.
@@ -313,39 +346,6 @@ Generar ingresos mediante suscripciones y listings destacados.
 1. Suscripciones mensuales
 2. Listings destacados individuales
 3. Banner advertising (futuro)
-
----
-
-## Fase 9: Panel de Administración
-
-### Objetivo
-Herramientas para moderar y administrar la plataforma.
-
-### Tareas
-- [ ] Dashboard de admin
-- [ ] Moderación de listings (aprobar/rechazar)
-- [ ] Gestión de usuarios
-- [ ] Reportes de contenido
-- [ ] Estadísticas globales
-- [ ] Configuración de precios
-- [ ] Gestión de categorías
-
----
-
-## Fase 10: Optimización y Escalabilidad
-
-### Objetivo
-Mejorar performance, SEO y experiencia de usuario.
-
-### Tareas
-- [ ] Optimización de imágenes (WebP, lazy loading)
-- [ ] Implementar búsqueda con Algolia/Meilisearch
-- [ ] Cache con Redis
-- [ ] PWA (Progressive Web App)
-- [ ] Notificaciones push
-- [ ] SEO avanzado (meta tags, sitemap)
-- [ ] Analytics (Google Analytics, Hotjar)
-- [ ] Testing (unit, integration, e2e)
 
 ---
 
@@ -378,14 +378,17 @@ Características premium para diferenciar la plataforma.
 - [ ] Upload de imágenes
 - [ ] Perfil de usuario
 
-### V1.0 (Fases 6-8)
-- [ ] Dashboard completo
+### V1.0 (Fases 6-7)
+- [x] Dashboard completo
 - [ ] Mensajería
-- [ ] Suscripciones
-- [ ] Featured listings
-- [ ] Panel admin básico
 
-### V2.0 (Fases 9-11)
+### V1.5 (Fases 8-9)
+- [ ] Panel admin básico
+- [ ] Optimización y escalabilidad
+
+### V2.0 (Fases 10-11)
+- [ ] Suscripciones y monetización
+- [ ] Featured listings
 - [ ] Búsqueda avanzada (Algolia)
 - [ ] Verificaciones
 - [ ] Tours virtuales
@@ -423,8 +426,8 @@ Características premium para diferenciar la plataforma.
 
 ## Estado Actual
 
-**Fase completada:** 4/11 ✅
-**Próxima fase:** Fase 5 — Gestión de Listings (CRUD)
+**Fases completadas:** 6/11 ✅
+**Próxima fase:** Fase 7 — Sistema de Mensajería
 
 ### Últimos Cambios
 - Server Actions para listings (getListings, getListingById, getSimilarListings)

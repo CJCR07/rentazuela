@@ -35,17 +35,17 @@ export default function FavoritosPage() {
       .select("*")
       .in("id", favoriteIds)
       .eq("is_active", true)
-      .order("created_at", { ascending: false });
+      .order("created_at", { ascending: false }) as { data: Listing[] | null };
 
     if (listingsData && listingsData.length > 0) {
-      setListings(listingsData as Listing[]);
+      setListings(listingsData);
 
-      const listingIds = listingsData.map((l) => l.id);
+      const listingIds = listingsData.map((l: Listing) => l.id);
       const { data: imagesData } = await supabase
         .from("listing_images")
         .select("*")
         .in("listing_id", listingIds)
-        .order("position", { ascending: true });
+        .order("position", { ascending: true }) as { data: ListingImage[] | null };
 
       const imagesMap: Record<string, ListingImage> = {};
       if (imagesData) {

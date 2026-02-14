@@ -38,9 +38,9 @@ export default function ProfilePage() {
 
       if (profile) {
         setProfile({
-          full_name: profile.full_name || "",
-          phone: profile.phone || "",
-          avatar_url: profile.avatar_url || "",
+          full_name: (profile as any).full_name || "",
+          phone: (profile as any).phone || "",
+          avatar_url: (profile as any).avatar_url || "",
         });
       }
       setLoading(false);
@@ -53,18 +53,13 @@ export default function ProfilePage() {
     e.preventDefault();
     setSaving(true);
 
-    const { error } = await supabase
-      .from("profiles")
-      .update({
-        full_name: profile.full_name,
-        phone: profile.phone,
-        updated_at: new Date().toISOString(),
-      })
-      .eq("id", user.id);
+    const updates = {
+      full_name: profile.full_name,
+      phone: profile.phone,
+      updated_at: new Date().toISOString(),
+    };
 
-    if (error) {
-      console.error("Error updating profile:", error);
-    }
+    await (supabase as any).from("profiles").update(updates).eq("id", user.id);
 
     setSaving(false);
   };

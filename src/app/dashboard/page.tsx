@@ -30,7 +30,7 @@ export default async function DashboardPage() {
   const { data: listings } = await supabase
     .from("listings")
     .select("views_count")
-    .eq("owner_id", user.id);
+    .eq("owner_id", user.id) as { data: { views_count: number | null }[] | null };
 
   const totalViews = listings?.reduce((sum, l) => sum + (l.views_count ?? 0), 0) ?? 0;
 
