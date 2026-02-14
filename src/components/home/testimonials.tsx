@@ -56,7 +56,7 @@ export function Testimonials() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-white py-20 dark:bg-background lg:py-28"
+      className="relative bg-muted/30 py-20 lg:py-28"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -90,7 +90,7 @@ export function Testimonials() {
           {TESTIMONIALS.map((t, i) => (
             <div
               key={t.name}
-              className={`group relative overflow-hidden rounded-2xl border border-border bg-white p-8 transition-all duration-500 hover:border-brand/30 hover:shadow-xl hover:shadow-brand/5 dark:bg-card ${
+              className={`group relative overflow-hidden rounded-2xl border border-border bg-card p-8 transition-all duration-500 hover:border-brand/30 hover:shadow-xl hover:shadow-brand/5 ${
                 isVisible
                   ? `animate-slide-up stagger-${i + 2}`
                   : "opacity-0"

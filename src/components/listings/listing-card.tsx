@@ -172,7 +172,7 @@ export function ListingCard({
           </div>
 
           <button 
-            className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-foreground shadow-lg backdrop-blur-sm transition-all hover:scale-110 active:scale-90"
+            className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-background/90 text-foreground shadow-lg backdrop-blur-sm transition-all hover:scale-110 active:scale-90"
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();

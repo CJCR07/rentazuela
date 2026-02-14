@@ -46,7 +46,7 @@ export function HeroSlider() {
   const slide = SLIDES[current];
 
   return (
-    <section className="relative h-[720px] w-full overflow-hidden bg-white dark:bg-background lg:h-[780px]">
+    <section className="relative h-[720px] w-full overflow-hidden bg-background lg:h-[780px]">
       {/* ── Background Images with Crossfade ── */}
       {SLIDES.map((s, i) => (
         <div

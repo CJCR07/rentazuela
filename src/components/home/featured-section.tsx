@@ -35,7 +35,7 @@ export function FeaturedSection({ title, subtitle, href, children }: FeaturedSec
 
   const scroll = (direction: "left" | "right") => {
     if (!scrollRef.current) return;
-    const amount = 340;
+    const amount = 360;
     scrollRef.current.scrollBy({
       left: direction === "left" ? -amount : amount,
       behavior: "smooth",
@@ -45,7 +45,7 @@ export function FeaturedSection({ title, subtitle, href, children }: FeaturedSec
   return (
     <section
       ref={sectionRef}
-      className={`py-10 lg:py-14 transition-all duration-700 ${
+      className={`py-10 lg:py-14 transition-all duration-700 bg-background ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
     >
@@ -95,7 +95,7 @@ export function FeaturedSection({ title, subtitle, href, children }: FeaturedSec
         {/* ── Carousel ── */}
         <div
           ref={scrollRef}
-          className="scrollbar-hide -mx-4 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-4 pb-2"
+          className="scrollbar-hide -mx-4 flex snap-x snap-mandatory gap-8 overflow-x-auto scroll-smooth px-4 pb-2"
         >
           {children}
         </div>

@@ -222,8 +222,8 @@ export function AdvancedSearch({ onCategoryChange, defaultCategory = "properties
               className={cn(
                 "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200",
                 isSelected
-                  ? "bg-white text-brand shadow-lg dark:bg-brand dark:text-white"
-                  : "bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
+                  ? "bg-brand text-white shadow-lg"
+                  : "bg-card text-foreground hover:bg-muted border border-border shadow-sm"
               )}
             >
               <Icon className="h-4 w-4" />
@@ -242,8 +242,8 @@ export function AdvancedSearch({ onCategoryChange, defaultCategory = "properties
             className={cn(
               "px-3 py-1 rounded-full text-xs font-medium transition-all duration-200",
               selectedSubcategory === sub.id
-                ? "bg-white/20 text-white border border-white/30"
-                : "text-white/70 hover:text-white hover:bg-white/10"
+                ? "bg-brand/10 text-brand border border-brand/20"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted border border-transparent"
             )}
           >
             {sub.label}
@@ -252,20 +252,20 @@ export function AdvancedSearch({ onCategoryChange, defaultCategory = "properties
       </div>
 
       {/* Main Search Container */}
-      <div className="rounded-2xl overflow-hidden">
+      <div className="rounded-2xl overflow-hidden bg-card border shadow-lg">
         {/* Property Search */}
         {isProperty && (
           <div className="grid grid-cols-1 md:grid-cols-12 gap-px">
             {/* Location */}
-            <div className="md:col-span-3  p-4 flex items-start gap-3 !bg-transparent">
+            <div className="md:col-span-3  p-4 flex items-start gap-3">
               <MapPin className="h-5 w-5 text-brand shrink-0 mt-[21px]" />
               <div className="flex-1">
-                <label className="text-xs font-semibold text-white/70 uppercase tracking-wider block">
+                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
                   Ubicación
                 </label>
                 <Popover open={cityOpen} onOpenChange={setCityOpen}>
                   <PopoverTrigger asChild>
-                    <button className="w-full text-left text-sm font-medium truncate text-white !h-6 flex items-center mt-1">
+                    <button className="w-full text-left text-sm font-medium truncate text-foreground !h-6 flex items-center mt-1">
                       {selectedCity || "Toda Venezuela"}
                     </button>
                   </PopoverTrigger>
@@ -309,15 +309,15 @@ export function AdvancedSearch({ onCategoryChange, defaultCategory = "properties
             {/* Vacation: Check-in / Sale&Rent: Property Type */}
             {isVacation ? (
               <>
-                <div className="md:col-span-3  p-4 flex items-start gap-3 border-l border-border !bg-transparent">
+                <div className="md:col-span-3  p-4 flex items-start gap-3 border-l border-border">
                   <Calendar className="h-5 w-5 text-brand shrink-0 mt-[21px]" />
                   <div className="flex-1">
-                    <label className="text-xs font-semibold text-white/70 uppercase tracking-wider block">
+                    <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
                       Check-in
                     </label>
                     <Popover>
                       <PopoverTrigger asChild>
-                        <button className="w-full text-left text-sm font-medium">
+                        <button className="w-full text-left text-sm font-medium text-foreground">
                           {checkIn ? format(checkIn, "dd/MM/yyyy", { locale: es }) : "Seleccionar"}
                         </button>
                       </PopoverTrigger>
@@ -333,15 +333,15 @@ export function AdvancedSearch({ onCategoryChange, defaultCategory = "properties
                     </Popover>
                   </div>
                 </div>
-                <div className="md:col-span-3  p-4 flex items-start gap-3 border-l border-border !bg-transparent">
+                <div className="md:col-span-3  p-4 flex items-start gap-3 border-l border-border">
                   <Calendar className="h-5 w-5 text-brand shrink-0 mt-[21px]" />
                   <div className="flex-1">
-                    <label className="text-xs font-semibold text-white/70 uppercase tracking-wider block">
+                    <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
                       Check-out
                     </label>
                     <Popover>
                       <PopoverTrigger asChild>
-                        <button className="w-full text-left text-sm font-medium">
+                        <button className="w-full text-left text-sm font-medium text-foreground">
                           {checkOut ? format(checkOut, "dd/MM/yyyy", { locale: es }) : "Seleccionar"}
                         </button>
                       </PopoverTrigger>
@@ -357,10 +357,10 @@ export function AdvancedSearch({ onCategoryChange, defaultCategory = "properties
                     </Popover>
                   </div>
                 </div>
-                <div className="md:col-span-2  p-4 flex items-start gap-3 border-l border-border !bg-transparent">
+                <div className="md:col-span-2  p-4 flex items-start gap-3 border-l border-border">
                   <Users className="h-5 w-5 text-brand shrink-0 mt-[21px]" />
                   <div className="flex-1">
-                    <label className="text-xs font-semibold text-white/70 uppercase tracking-wider block">
+                    <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
                       Huéspedes
                     </label>
                     <Input
@@ -369,22 +369,22 @@ export function AdvancedSearch({ onCategoryChange, defaultCategory = "properties
                       placeholder="1"
                       value={guests}
                       onChange={(e) => setGuests(e.target.value)}
-                      className="h-6 border-0 p-0 text-sm font-medium focus-visible:ring-0 text-white placeholder:text-white/50"
+                      className="h-6 border-0 p-0 text-sm font-medium focus-visible:ring-0 text-foreground placeholder:text-muted-foreground"
                     />
                   </div>
                 </div>
               </>
             ) : (
               <>
-                <div className="md:col-span-3  p-4 flex items-start gap-3 border-l border-border !bg-transparent">
+                <div className="md:col-span-3  p-4 flex items-start gap-3 border-l border-border">
                   <Home className="h-5 w-5 text-brand shrink-0 mt-[21px]" />
                   <div className="flex-1">
-                    <label className="text-xs font-semibold text-white/70 uppercase tracking-wider block">
+                    <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
                       Tipo de Propiedad
                     </label>
                 <Select value={propertyType} onValueChange={setPropertyType}>
-                  <SelectTrigger className="!h-6 !bg-transparent border-0 p-0 text-sm font-medium focus:ring-0 shadow-none [&>svg]:hidden mt-1" style={{ backgroundColor: 'transparent' }}>
-                    <SelectValue placeholder="Cualquiera" className="text-white !bg-transparent" />
+                  <SelectTrigger className="!h-6 !bg-transparent border-0 p-0 text-sm font-medium focus:ring-0 shadow-none [&>svg]:hidden mt-1">
+                    <SelectValue placeholder="Cualquiera" />
                   </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="any">Cualquiera</SelectItem>
@@ -395,15 +395,15 @@ export function AdvancedSearch({ onCategoryChange, defaultCategory = "properties
                     </Select>
                   </div>
                 </div>
-                <div className="md:col-span-3  p-4 flex items-start gap-3 border-l border-border !bg-transparent">
+                <div className="md:col-span-3  p-4 flex items-start gap-3 border-l border-border">
                   <DollarSign className="h-5 w-5 text-brand shrink-0 mt-[21px]" />
                   <div className="flex-1">
-                    <label className="text-xs font-semibold text-white/70 uppercase tracking-wider block">
+                    <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
                       Precio
                     </label>
                     <Select value={priceRange} onValueChange={setPriceRange}>
-                      <SelectTrigger className="!h-6 !bg-transparent border-0 p-0 text-sm font-medium focus:ring-0 shadow-none [&>svg]:hidden mt-1" style={{ backgroundColor: 'transparent' }}>
-                        <SelectValue placeholder="Cualquiera" className="text-white !bg-transparent" />
+                      <SelectTrigger className="!h-6 !bg-transparent border-0 p-0 text-sm font-medium focus:ring-0 shadow-none [&>svg]:hidden mt-1">
+                        <SelectValue placeholder="Cualquiera" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="any">Cualquiera</SelectItem>
@@ -414,15 +414,15 @@ export function AdvancedSearch({ onCategoryChange, defaultCategory = "properties
                     </Select>
                   </div>
                 </div>
-                <div className="md:col-span-2  p-4 flex items-start gap-3 border-l border-border !bg-transparent">
+                <div className="md:col-span-2  p-4 flex items-start gap-3 border-l border-border">
                   <Bed className="h-5 w-5 text-brand shrink-0 mt-[21px]" />
                   <div className="flex-1">
-                    <label className="text-xs font-semibold text-white/70 uppercase tracking-wider block">
+                    <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
                       Habitaciones
                     </label>
                     <Select value={bedrooms} onValueChange={setBedrooms}>
-                      <SelectTrigger className="!h-6 !bg-transparent border-0 p-0 text-sm font-medium focus:ring-0 shadow-none [&>svg]:hidden mt-1" style={{ backgroundColor: 'transparent' }}>
-                        <SelectValue placeholder="Cualquiera" className="text-white !bg-transparent" />
+                      <SelectTrigger className="!h-6 !bg-transparent border-0 p-0 text-sm font-medium focus:ring-0 shadow-none [&>svg]:hidden mt-1">
+                        <SelectValue placeholder="Cualquiera" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="any">Cualquiera</SelectItem>
@@ -474,15 +474,15 @@ export function AdvancedSearch({ onCategoryChange, defaultCategory = "properties
         {isVehicle && (
           <div className="grid grid-cols-1 md:grid-cols-12 gap-px">
             {/* Location */}
-            <div className="md:col-span-3  p-4 flex items-start gap-3 !bg-transparent">
+            <div className="md:col-span-3  p-4 flex items-start gap-3">
               <MapPin className="h-5 w-5 text-brand shrink-0 mt-[21px]" />
               <div className="flex-1">
-                <label className="text-xs font-semibold text-white/70 uppercase tracking-wider block">
+                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
                   {isVehicleRent ? "Lugar de Pickup" : "Ubicación"}
                 </label>
                 <Popover open={cityOpen} onOpenChange={setCityOpen}>
                   <PopoverTrigger asChild>
-                    <button className="w-full text-left text-sm font-medium truncate text-white h-6 flex items-center">
+                    <button className="w-full text-left text-sm font-medium truncate text-foreground h-6 flex items-center">
                       {selectedCity || "Toda Venezuela"}
                     </button>
                   </PopoverTrigger>
@@ -518,15 +518,15 @@ export function AdvancedSearch({ onCategoryChange, defaultCategory = "properties
             </div>
 
             {/* Vehicle Type */}
-            <div className="md:col-span-3  p-4 flex items-start gap-3 border-l border-border !bg-transparent">
+            <div className="md:col-span-3  p-4 flex items-start gap-3 border-l border-border">
               <CarFront className="h-5 w-5 text-brand shrink-0 mt-[21px]" />
               <div className="flex-1">
-                <label className="text-xs font-semibold text-white/70 uppercase tracking-wider block">
+                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
                   Tipo de Vehículo
                 </label>
                 <Select value={vehicleType} onValueChange={setVehicleType}>
-                  <SelectTrigger className="!h-6 !bg-transparent border-0 p-0 text-sm font-medium focus:ring-0 shadow-none [&>svg]:hidden mt-1" style={{ backgroundColor: 'transparent' }}>
-                    <SelectValue placeholder="Cualquiera" className="text-white !bg-transparent" />
+                  <SelectTrigger className="!h-6 !bg-transparent border-0 p-0 text-sm font-medium focus:ring-0 shadow-none [&>svg]:hidden mt-1">
+                    <SelectValue placeholder="Cualquiera" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="any">Cualquiera</SelectItem>
@@ -539,15 +539,15 @@ export function AdvancedSearch({ onCategoryChange, defaultCategory = "properties
             </div>
 
             {/* Price Range */}
-            <div className="md:col-span-3  p-4 flex items-start gap-3 border-l border-border !bg-transparent">
-              <DollarSign className="h-5 w-5 text-brand shrink-0 pt-[22px]" />
+            <div className="md:col-span-3  p-4 flex items-start gap-3 border-l border-border">
+              <DollarSign className="h-5 w-5 text-brand shrink-0 mt-[21px]" />
               <div className="flex-1">
-                <label className="text-xs font-semibold text-white/70 uppercase tracking-wider block">
+                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
                   {isVehicleRent ? "Precio por día" : "Precio"}
                 </label>
                 <Select value={priceRange} onValueChange={setPriceRange}>
-                  <SelectTrigger className="!h-6 !bg-transparent border-0 p-0 text-sm font-medium focus:ring-0 shadow-none [&>svg]:hidden mt-1" style={{ backgroundColor: 'transparent' }}>
-                    <SelectValue placeholder="Cualquiera" className="text-white !bg-transparent" />
+                  <SelectTrigger className="!h-6 !bg-transparent border-0 p-0 text-sm font-medium focus:ring-0 shadow-none [&>svg]:hidden mt-1">
+                    <SelectValue placeholder="Cualquiera" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="any">Cualquiera</SelectItem>
@@ -573,15 +573,15 @@ export function AdvancedSearch({ onCategoryChange, defaultCategory = "properties
 
             {/* Dates for rental */}
             {isVehicleRent ? (
-              <div className="md:col-span-2  p-4 flex items-start gap-3 border-l border-border !bg-transparent">
+              <div className="md:col-span-2  p-4 flex items-start gap-3 border-l border-border">
                 <CalendarClock className="h-5 w-5 text-brand shrink-0 mt-[21px]" />
                 <div className="flex-1">
-                  <label className="text-xs font-semibold text-white/70 uppercase tracking-wider block">
+                  <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
                     Fecha Pickup
                   </label>
                   <Popover>
                     <PopoverTrigger asChild>
-                      <button className="w-full text-left text-sm font-medium">
+                      <button className="w-full text-left text-sm font-medium text-foreground">
                         {pickupDate ? format(pickupDate, "dd/MM/yyyy", { locale: es }) : "Seleccionar"}
                       </button>
                     </PopoverTrigger>
@@ -598,15 +598,15 @@ export function AdvancedSearch({ onCategoryChange, defaultCategory = "properties
                 </div>
               </div>
             ) : (
-              <div className="md:col-span-2  p-4 flex items-start gap-3 border-l border-border !bg-transparent">
-                <Calendar className="h-5 w-5 text-brand shrink-0 pt-[22px]" />
+              <div className="md:col-span-2  p-4 flex items-start gap-3 border-l border-border">
+                <Calendar className="h-5 w-5 text-brand shrink-0 mt-[21px]" />
                 <div className="flex-1">
-                  <label className="text-xs font-semibold text-white/70 uppercase tracking-wider block">
+                  <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
                     Año
                   </label>
                   <Select>
-                    <SelectTrigger className="!h-6 !bg-transparent border-0 p-0 text-sm font-medium focus:ring-0 shadow-none [&>svg]:hidden mt-1" style={{ backgroundColor: 'transparent' }}>
-                      <SelectValue placeholder="Cualquiera" className="text-white !bg-transparent" />
+                    <SelectTrigger className="!h-6 !bg-transparent border-0 p-0 text-sm font-medium focus:ring-0 shadow-none [&>svg]:hidden mt-1">
+                      <SelectValue placeholder="Cualquiera" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="any">Cualquiera</SelectItem>
@@ -636,15 +636,15 @@ export function AdvancedSearch({ onCategoryChange, defaultCategory = "properties
         {isCommercial && (
           <div className="grid grid-cols-1 md:grid-cols-12 gap-px">
             {/* Location */}
-            <div className="md:col-span-4  p-4 flex items-start gap-3 !bg-transparent">
+            <div className="md:col-span-4  p-4 flex items-start gap-3">
               <MapPin className="h-5 w-5 text-brand shrink-0 mt-[21px]" />
               <div className="flex-1">
-                <label className="text-xs font-semibold text-white/70 uppercase tracking-wider block">
+                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
                   Ubicación
                 </label>
                 <Popover open={cityOpen} onOpenChange={setCityOpen}>
                   <PopoverTrigger asChild>
-                    <button className="w-full text-left text-sm font-medium truncate text-white h-6 flex items-center">
+                    <button className="w-full text-left text-sm font-medium truncate text-foreground h-6 flex items-center">
                       {selectedCity || "Toda Venezuela"}
                     </button>
                   </PopoverTrigger>
@@ -680,15 +680,15 @@ export function AdvancedSearch({ onCategoryChange, defaultCategory = "properties
             </div>
 
             {/* Commercial Type */}
-            <div className="md:col-span-4  p-4 flex items-start gap-3 border-l border-border !bg-transparent">
+            <div className="md:col-span-4  p-4 flex items-start gap-3 border-l border-border">
               <Building className="h-5 w-5 text-brand shrink-0 mt-[21px]" />
               <div className="flex-1">
-                <label className="text-xs font-semibold text-white/70 uppercase tracking-wider block">
+                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
                   Tipo de Local
                 </label>
                 <Select value={commercialType} onValueChange={setCommercialType}>
-                  <SelectTrigger className="!h-6 !bg-transparent border-0 p-0 text-sm font-medium focus:ring-0 shadow-none [&>svg]:hidden mt-1" style={{ backgroundColor: 'transparent' }}>
-                    <SelectValue placeholder="Cualquiera" className="text-white !bg-transparent" />
+                  <SelectTrigger className="!h-6 !bg-transparent border-0 p-0 text-sm font-medium focus:ring-0 shadow-none [&>svg]:hidden mt-1">
+                    <SelectValue placeholder="Cualquiera" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="any">Cualquiera</SelectItem>
@@ -701,15 +701,15 @@ export function AdvancedSearch({ onCategoryChange, defaultCategory = "properties
             </div>
 
             {/* Price Range */}
-            <div className="md:col-span-3  p-4 flex items-start gap-3 border-l border-border !bg-transparent">
-              <DollarSign className="h-5 w-5 text-brand shrink-0 pt-[22px]" />
+            <div className="md:col-span-3  p-4 flex items-start gap-3 border-l border-border">
+              <DollarSign className="h-5 w-5 text-brand shrink-0 mt-[21px]" />
               <div className="flex-1">
-                <label className="text-xs font-semibold text-white/70 uppercase tracking-wider block">
+                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">
                   Precio
                 </label>
                 <Select value={priceRange} onValueChange={setPriceRange}>
-                  <SelectTrigger className="!h-6 !bg-transparent border-0 p-0 text-sm font-medium focus:ring-0 shadow-none [&>svg]:hidden mt-1" style={{ backgroundColor: 'transparent' }}>
-                    <SelectValue placeholder="Cualquiera" className="text-white !bg-transparent" />
+                  <SelectTrigger className="!h-6 !bg-transparent border-0 p-0 text-sm font-medium focus:ring-0 shadow-none [&>svg]:hidden mt-1">
+                    <SelectValue placeholder="Cualquiera" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="any">Cualquiera</SelectItem>

@@ -65,7 +65,7 @@ export function Footer() {
   const [email, setEmail] = useState("");
 
   return (
-    <footer className="border-t bg-white dark:bg-background">
+    <footer className="border-t bg-background">
       {/* ── Investment CTA with Newsletter ── */}
       <div className="bg-brand">
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 px-4 py-14 text-center text-white sm:px-6 lg:flex-row lg:justify-between lg:px-8 lg:text-left">
@@ -171,7 +171,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-muted-foreground shadow-sm transition-all duration-300 hover:scale-110 hover:bg-brand hover:text-white dark:bg-card"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-card text-muted-foreground shadow-sm transition-all duration-300 hover:scale-110 hover:bg-brand hover:text-white"
                 >
                   <Icon className="h-5 w-5" />
                 </a>

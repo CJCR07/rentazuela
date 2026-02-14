@@ -50,7 +50,7 @@ function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-background">
+    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4 py-12 bg-background">
       <div className="w-full max-w-md space-y-8">
         {/* Header */}
         <div className="text-center">

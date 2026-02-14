@@ -77,7 +77,7 @@ const FEATURED_VEHICLES = [
     timeAgo: "30 min",
     area: "22,000 km",
     category: "vehicle" as const,
-    imageUrl: "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&q=80&w=800",
+    imageUrl: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&q=80&w=800",
     isNew: true,
   },
   {
@@ -89,7 +89,7 @@ const FEATURED_VEHICLES = [
     timeAgo: "1 hora",
     area: "35,000 km",
     category: "vehicle" as const,
-    imageUrl: "https://images.unsplash.com/photo-1533473359331-2969f3c6aca0?auto=format&fit=crop&q=80&w=800",
+    imageUrl: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=800",
   },
   {
     id: "v3",
@@ -111,7 +111,7 @@ const FEATURED_VEHICLES = [
     timeAgo: "4 horas",
     area: "45,000 km",
     category: "vehicle" as const,
-    imageUrl: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=800",
+    imageUrl: "https://images.unsplash.com/photo-1563720360172-67b8f3dce741?auto=format&fit=crop&q=80&w=800",
   },
   {
     id: "v5",
@@ -123,7 +123,7 @@ const FEATURED_VEHICLES = [
     area: "SUV",
     category: "vehicle" as const,
     pricePeriod: " / día",
-    imageUrl: "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&q=80&w=800",
+    imageUrl: "https://images.unsplash.com/photo-1533473359331-2969f3c6aca0?auto=format&fit=crop&q=80&w=800",
   },
 ];
 
@@ -241,7 +241,9 @@ export default function HomePage() {
       </FadeIn>
 
       {/* ── Stats ── */}
-      <StatsBar />
+      <div className="bg-background">
+        <StatsBar />
+      </div>
 
       {/* ── Testimonios ── */}
       <FadeIn direction="up" delay={0.1}>

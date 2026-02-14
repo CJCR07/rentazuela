@@ -47,7 +47,7 @@ export function HowItWorks() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-muted/30 py-20 lg:py-28"
+      className="relative overflow-hidden bg-background py-20 lg:py-28"
     >
       {/* Decorative blobs */}
       <div className="pointer-events-none absolute -left-40 -top-40 h-80 w-80 rounded-full bg-brand/5 blur-3xl" />
@@ -102,7 +102,7 @@ export function HowItWorks() {
                 </div>
 
                 {/* Icon */}
-                <div className="relative z-10 mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-white shadow-lg shadow-brand/5 ring-1 ring-black/5 transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl group-hover:shadow-brand/10 dark:bg-card">
+                <div className="relative z-10 mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-card shadow-lg shadow-brand/5 ring-1 ring-border transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl group-hover:shadow-brand/10">
                   <Icon className="h-8 w-8 text-brand transition-colors" />
                 </div>
 
